@@ -1,0 +1,39 @@
+// in Quote.jsx
+
+import React, { useState, useEffect } from 'react';
+
+function Quote() {
+
+    const [quotes, setQuote] = useState([]);
+
+    useEffect(() => {
+        fetch("https://dummyjson.com/quotes?limit=10")
+         .then((res) => res.json())
+         .then((data) => setQuote(data.quotes))
+         .catch((err) => console.log(err));
+    }, [])
+    
+
+    return(
+        <>
+        {
+            quotes.map((quoteObj) => (
+                <h1 key={quoteObj.id}>{quoteObj.quote}</h1>
+            ))
+        }
+        </>
+    );
+}
+export default Quote
+
+
+// in App.jsx
+
+import Quote from "./Quote.jsx";
+
+function App() {
+  return (
+      <Quote />
+  );
+}
+export default App
