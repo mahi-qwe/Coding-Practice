@@ -1,0 +1,178 @@
+// in Todolist Component
+
+import { useState } from "react";
+
+function Todolist(){
+
+    
+    const [tasks,setTask] = useState([]);
+    const [newTask,setNewTask] = useState("");
+
+    function handleInputChange(event){
+
+        setNewTask(event.target.value);
+
+    }
+
+    function addTask(){
+
+        if(newTask.trim() !== ""){
+        setTask(t => [...t,newTask])
+        setNewTask("");
+        }
+
+    }
+
+    function deleteTask(index){
+
+        const updatedTask = tasks.filter((_,i) => i !== index);
+        setTask(updatedTask)
+
+    }
+
+    function moveTaskUp(index) {
+
+        if(index > 0){
+            const updatedTask = [...tasks];
+            [updatedTask[index], updatedTask[index - 1]] =
+            [updatedTask[index - 1], updatedTask[index]];
+            setTask(updatedTask);
+        }
+
+    }
+
+    function moveTaskDown(index){
+
+          if(index < tasks.length - 1){
+            const updatedTask = [...tasks];
+            [updatedTask[index], updatedTask[index + 1]] =
+            [updatedTask[index + 1], updatedTask[index]];
+            setTask(updatedTask);
+        }
+
+
+    }
+
+    return(
+        <div className = "to-do-list">
+
+        <h1>To-Do-List</h1>
+
+        <div>
+            <input 
+            type="text" 
+            placeholder ="Enter a task..."
+            value={newTask}
+            onChange = {handleInputChange}
+            />
+            <button
+            className = "add-button"
+            onClick = {addTask}>
+                Add
+            </button>
+        </div>
+
+        <ol>
+            {tasks.map((task, index) =>
+                <li key = {index}>
+                    <span className = "text">{task}</span>
+                    <button className="delete-button"
+                    onClick = {() => deleteTask(index)}>
+                        Delete
+                    </button>
+                    <button className="move-button"
+                    onClick = {() => moveTaskUp(index)}>
+                        ☝
+                    </button>
+                     <button className="move-button"
+                    onClick = {() => moveTaskDown(index)}>
+                        👇
+                    </button>
+                </li>
+            )}
+        </ol>
+
+        </div>  
+    )
+
+}
+
+export default Todolist
+
+
+// in index.css
+
+/* @import "tailwindcss" */
+
+body{
+  background-color: hsl(0, 0%, 10%);
+}
+.to-do-list{
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin-top: 100px;
+}
+h1{
+  font-size: 4rem;
+  color: white;
+}
+button{
+  font-size: 1.7rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  color: rgb(3, 0, 0);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+.add-button{
+  background-color: hsl(125, 47%, 54%);
+}
+.add-button:hover{
+  background-color: hsl(125, 47%, 44%);
+}
+.delete-button{
+  background-color: hsl(0, 100%, 50%);
+}
+.delete-button:hover{
+  background-color: hsl(2, 100%, 40%);
+}
+.move-button{
+  background-color: hsl(230, 100%, 50%);
+}
+.move-button:hover{
+  background-color: hsl(230, 100%, 40%);
+}
+input[type = "text"]{
+  font-size: 1.6rem;
+  padding: 10px;
+  border: 2px solid hsla(0, 0%, 80%, 0.5);
+  border-radius: 5px;
+  color: hsla(0, 0%, 0%, 0.5);
+}
+
+ol{
+  padding: 0;
+}
+li{
+  font-size: 2rem;
+  font-weight:bold;
+  padding: 15px;
+  background-color: hsl(0, 0%, 97%);
+  margin-bottom: 10px;
+  border: 3px solid hsla(0, 0%, 85%, 0.75);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+.text{
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+}
+.delete-button, .move-button{
+  padding: 8px 12px;
+  font-size: 1.4rem;
+  margin-left: 10px;
+}
