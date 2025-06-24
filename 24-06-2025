@@ -1,0 +1,32 @@
+// setting up JSON Server
+// GET Method
+fetch('http://localhost:3001/users')
+  .then(res => res.json())
+  .then(data => console.log(data));
+
+// POST Method
+fetch('http://localhost:3001/users', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Ayaan', email: 'ayaan@example.com' })
+});
+
+// PUT Method
+fetch('http://localhost:3001/users/1', {
+  method: 'PUT',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Updated Name', email: 'updated@example.com' })
+});
+
+// PATCH Method
+fetch('http://localhost:3001/users/1', {
+  method: 'PATCH',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email: 'changed@example.com' })
+});
+
+// DELETE Method
+fetch('http://localhost:3001/users/1', {
+  method: 'DELETE'
+});
+
