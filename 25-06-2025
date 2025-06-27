@@ -1,0 +1,23 @@
+// storing value to localStorage
+
+import React, { useState, useEffect } from 'react';
+
+function App() {
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("name");
+    if (saved) setName(saved);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("name", name);
+  }, [name]);
+
+  return (
+    <>
+      <input value={name} onChange={(e) => setName(e.target.value)} />
+      <p>Hello, {name}</p>
+    </>
+  );
+}
