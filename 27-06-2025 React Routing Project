@@ -1,0 +1,104 @@
+// in App.js
+
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./Register";
+import Login from "./Login";
+import Home from "./Home";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+// Note: we wrap our app component in "BrowserRouter" to enable routing.
+// Routes is like folder/box, here we define route for each component(path).
+// Based on the path(in url), we decide which component should show.
+
+// in Register.jsx
+
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+function Register() {
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const navigate = useNavigate();
+
+  function handleChange(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault(); // this is because submit has default behaviour of page reloading & sending data to server.
+    navigate("/login");
+  }
+
+  return (
+    <div>
+      <h2>Register</h2>
+      <form onSubmit={handleSubmit}>
+        <input name="name" placeholder="Name" onChange={handleChange} /><br />
+        <input name="email" placeholder="Email" onChange={handleChange} /><br />
+        <input name="password" type="password" placeholder="Password" onChange={handleChange} /><br />
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  );
+}
+
+export default Register;
+
+// in Login.jsx
+
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+function Login() {
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
+
+  function handleChange(e) {
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+    // Just redirect to home page
+    navigate("/home");
+  }
+
+  return (
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
+        <input name="email" placeholder="Email" onChange={handleChange} /><br />
+        <input name="password" type="password" placeholder="Password" onChange={handleChange} /><br />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+}
+
+// in Home.jsx
+
+import React from "react";
+
+function Home() {
+  return (
+    <div>
+      <h2>Welcome to the Home Page!</h2>
+    </div>
+  );
+}
+
+export default Home;
+                                                                              
