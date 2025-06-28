@@ -1,0 +1,14 @@
+// useParams Example 
+
+import { useParams } from 'react-router-dom';
+
+function Product() {
+  const { id } = useParams(); // useParams() gives us the id from the URL
+
+  return (
+    <div>
+      <h2>Product Page</h2>
+      <p>You are viewing product with ID: {id}</p>
+    </div>
+  );
+}
