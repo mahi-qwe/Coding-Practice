@@ -1,0 +1,16 @@
+// Median of Two Sorted Arrays (Hard)
+
+var findMedianSortedArrays = function(nums1, nums2) {
+    let mergedArray = nums1.concat(nums2);
+    let afterSorted = mergedArray.sort((a, b) => a - b);
+    let length = afterSorted.length;
+    let position = Math.floor(length / 2);
+    let sum = 0;
+    if(length % 2 !== 0){
+        return afterSorted[position];
+    }
+    else{
+        sum = (afterSorted[position] + afterSorted[position - 1]) / 2;
+        return sum;
+    }
+};
