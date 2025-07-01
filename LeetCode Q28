@@ -1,0 +1,6 @@
+// Find the Index of the First Occurrence in a String (Easy)
+
+var strStr = function(haystack, needle) {
+    let a = haystack.indexOf(needle);
+    return a;
+};
