@@ -1,0 +1,12 @@
+// Search Insert Position (Easy)
+
+var searchInsert = function(nums, target) {
+    let extra;
+    for(let x = 0; x < nums.length; x++){
+        if(target <= nums[x]){
+            return x
+        }
+        extra = x;
+    }
+    return extra + 1;
+};
