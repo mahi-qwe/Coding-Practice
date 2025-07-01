@@ -1,0 +1,10 @@
+// Find First and Last Position of Element in Sorted Array (Medium)
+
+var searchRange = function(nums, target) {
+    let arr = [];
+    let var1 = nums.indexOf(target);
+    let var2 = nums.lastIndexOf(target);
+    arr.push(var1);
+    arr.push(var2);
+    return arr;
+};
