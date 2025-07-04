@@ -1,0 +1,5 @@
+// Pow(x, n) (Easy)
+
+var myPow = function(x, n) {
+    return Math.pow(x, n);
+};
