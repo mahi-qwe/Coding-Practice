@@ -1,0 +1,8 @@
+// Length of Last Word (Easy)
+
+var lengthOfLastWord = function(s) {
+    let afterTrim = s.trim();
+    let a = afterTrim.split(' ');
+    let reverse = a.pop();
+    return reverse.length;
+};
