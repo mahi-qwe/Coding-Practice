@@ -1,0 +1,13 @@
+// Valid Palindrome (Easy)
+
+var isPalindrome = function(s) {
+    let lowerCase = s.toLowerCase();
+    let afterClean = lowerCase.replaceAll(/[^a-z0-9]/g, "");
+    let reversed = afterClean.split('').reverse().join("");
+    if(afterClean === reversed){
+        return true;
+    }
+    else{
+        return false;
+    }
+};
