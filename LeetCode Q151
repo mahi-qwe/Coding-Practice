@@ -1,0 +1,7 @@
+// Reverse Words in a String (Medium)
+
+var reverseWords = function(s) {
+    let sample = s.trim();
+    let a = sample.split(' ').reverse().join(' ');
+    return a;
+};
