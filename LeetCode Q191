@@ -1,0 +1,13 @@
+// Number of 1 Bits (Easy)
+
+var hammingWeight = function(n) {
+    let sample = n.toString(2);
+    let sampleString = sample.toString();
+    let count = 0;
+    for(let each of sampleString){
+        if(each === '1'){
+            count++;
+        }
+    }
+    return count;
+};
