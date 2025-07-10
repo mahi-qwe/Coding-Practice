@@ -1,7 +1,14 @@
 // Reverse Words in a String (Medium)
 
 var reverseWords = function(s) {
-    let sample = s.trim();
-    let a = sample.split(' ').reverse().join(' ');
-    return a;
+    let s1 = s.trim();
+    let arr = s1.split(' ');
+    arr.reverse();
+    for(let i=0; i<arr.length; i++){
+        if(arr[i] === ''){
+            arr.splice(i, 1);
+            i = i - 1;
+        }
+    }
+    return arr.join(' ');
 };
