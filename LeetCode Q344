@@ -1,0 +1,5 @@
+// Reverse String (Easy)
+
+var reverseString = function(s) {
+    return s.reverse();
+};
