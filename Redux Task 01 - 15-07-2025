@@ -24,7 +24,7 @@ const store = Redux.createStore(counterReducer);
 // get initial state
 console.log("Initial State:", store.getState());
 
-// whenever the state changes run the code, (for the first render, it won't work)
+// whenever the state changes run the code, (for initialization of state, it won't work)
 store.subscribe(() => {
   console.log("State Updated:", store.getState());
 });
