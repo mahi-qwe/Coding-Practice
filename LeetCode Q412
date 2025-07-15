@@ -1,0 +1,24 @@
+// Fizz Buzz (Easy)
+
+var fizzBuzz = function(n) {
+    let sample = [];
+    let sarray = [];
+    for(let i=1; i<=n; i++){
+        sample.push(i)
+    }
+    for(let i=0; i<sample.length; i++){
+        if(sample[i] % 3 === 0 && sample[i] % 5 === 0){
+            sample.splice(i, 1, "FizzBuzz")
+        }
+        else if(sample[i] % 3 === 0){
+            sample.splice(i, 1, "Fizz")
+        }
+        else if(sample[i] % 5 === 0){
+            sample.splice(i, 1, "Buzz")
+        }
+    }
+    for(let i=0; i<sample.length; i++){
+        sarray.push(String(sample[i]));
+    }
+    return sarray
+};
