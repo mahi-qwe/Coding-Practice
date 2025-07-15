@@ -1,0 +1,43 @@
+// first install redux module - npm install redux
+// Here, we are doing a project using Vanilla JS(So, no React-Redux)
+
+// action types
+const INCREMENT = { type: "INCREMENT" };
+const DECREMENT = { type: "DECREMENT" };
+
+// reducer function(must be pure)
+const counterReducer = (state = { count: 0 }, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { count: state.count + 1 };
+    case 'DECREMENT':
+      return { count: state.count - 1 };
+    default:
+      return state; // must always return state(if the type is invalid)
+  }
+};
+
+// store creation
+// createStore can be imported also like "import { createStore } from 'redux'" (We can Use Both Ways, if you're using my way, you should include the "CDN" link)
+const store = Redux.createStore(counterReducer); 
+
+// get initial state
+console.log("Initial State:", store.getState());
+
+// whenever the state changes run the code, (for the first render, it won't work)
+store.subscribe(() => {
+  console.log("State Updated:", store.getState());
+});
+
+// dispatching actions
+store.dispatch(INCREMENT);  // count: 1
+store.dispatch(INCREMENT);  // count: 2
+store.dispatch(DECREMENT);  // count: 1
+
+
+// OUTPUT
+Initial State: { count: 0 }
+State Updated: { count: 1 }
+State Updated: { count: 2 }
+State Updated: { count: 1 }
+
