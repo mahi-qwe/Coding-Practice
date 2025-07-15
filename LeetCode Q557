@@ -1,0 +1,12 @@
+// Reverse Words in a String III (Easy)
+
+var reverseWords = function(s) {
+    let obj = [];
+    let stringToArray = s.split(' ');
+    for(let i = 0; i < stringToArray.length; i++){
+        let a = stringToArray[i].toString();
+        let reversed = a.reverse;
+        obj.push(reversed);
+    }
+    return obj.join(',');
+};
