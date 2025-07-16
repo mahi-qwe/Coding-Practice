@@ -44,14 +44,70 @@ import { createStore, combineReducers } from 'redux';
 import counterReducer from './counterReducer.js';
 import userReducer from './userReducer.js';
 
-// Combine reducers
+// combine reducers
 const rootReducer = combineReducers({
   counter: counterReducer,
   user: userReducer
 });
 
-// Create store
+// create store
 const store = createStore(rootReducer);
 
 export default store;
 
+// Counter.jsx
+
+import { useDispatch, useSelector } from 'react-redux';
+
+function Counter() {
+  const count = useSelector((state) => state.counter.count);
+  const dispatch = useDispatch();
+
+  return (
+    <div>
+      <h2>Counter: {count}</h2>
+      <button onClick={() => dispatch({ type: 'INCREMENT' })}>Increment</button>
+      <button onClick={() => dispatch({ type: 'DECREMENT' })}>Decrement</button>
+    </div>
+  );
+}
+
+export default Counter;
+
+// User.jsx
+
+import { useDispatch, useSelector } from 'react-redux';
+
+function User() {
+  const name = useSelector((state) => state.user.name);
+  const dispatch = useDispatch();
+
+  return (
+    <div>
+      <h2>User: {name}</h2>
+      <button onClick={() => dispatch({ type: 'SET_NAME', payload: 'Mahir' })}>
+        Set Name to Mahir
+      </button>
+    </div>
+  );
+}
+
+export default User;
+
+// App.jsx
+
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import Counter from './components/Counter';
+import User from './components/User';
+
+function App() {
+  return (
+    <Provider store={store}>
+      <Counter />
+      <User />
+    </Provider>
+  );
+}
+
+export default App;
