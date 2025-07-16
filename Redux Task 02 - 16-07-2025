@@ -1,0 +1,57 @@
+// my folder structure
+
+src/
+  redux/                // to store redux related files
+   store.js             // store creation & combining reducers
+   counterReducer.js 
+   userReducer.js
+  components/
+   Counter.jsx
+   User.jsx
+  App.jsx
+
+// counterReducer.js
+
+const counterReducer = (state = { count: 0 }, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { count: state.count + 1 };
+    case 'DECREMENT':
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+};
+
+export default counterReducer;
+
+// userReducer.js
+
+const userReducer = (state = { name: 'Guest' }, action) => {
+  switch (action.type) {
+    case 'SET_NAME':
+      return { name: action.payload };
+    default:
+      return state;
+  }
+};
+
+export default userReducer;
+
+// store.js
+
+import { createStore, combineReducers } from 'redux';
+import counterReducer from './counterReducer.js';
+import userReducer from './userReducer.js';
+
+// Combine reducers
+const rootReducer = combineReducers({
+  counter: counterReducer,
+  user: userReducer
+});
+
+// Create store
+const store = createStore(rootReducer);
+
+export default store;
+
