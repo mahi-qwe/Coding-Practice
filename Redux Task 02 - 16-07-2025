@@ -1,7 +1,7 @@
 // my folder structure
 
 src/
-  redux/                // to store redux related files
+  redux/                // reducers, redux store
    store.js             // store creation & combining reducers
    counterReducer.js 
    userReducer.js
