@@ -1,0 +1,91 @@
+// folder structure, I have used ChatGPT to get the structure☺️
+
+src/
+│
+├── App.jsx
+├── main.jsx
+│
+├── store/
+│   ├── store.js
+│   └── counterReducer.js
+│
+└── components/
+    └── Counter.jsx
+
+// counterReducer.js
+
+const initialState = { count: 0 };
+
+export const counterReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "INCREMENT":
+      return { ...state, count: state.count + 1 };
+    case "DECREMENT":
+      return { ...state, count: state.count - 1 };
+    default:
+      return state;
+  }
+};
+
+// store.js
+
+import { createStore } from "redux";
+import { counterReducer } from "./counterReducer.js";
+
+const store = createStore(counterReducer);
+
+export default store;
+
+// main.jsx
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import { Provider } from "react-redux";
+import store from "./store/store.js";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);
+
+// Counter.jsx
+
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+function Counter() {
+  const count = useSelector((state) => state.count);
+  const dispatch = useDispatch();
+
+  const increment = () => dispatch({ type: "INCREMENT" });
+  const decrement = () => dispatch({ type: "DECREMENT" });
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Count: {count}</h1>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement} style={{ marginLeft: "10px" }}>Decrement</button>
+    </div>
+  );
+}
+
+export default Counter;
+
+// App.jsx
+
+import React from "react";
+import Counter from "./components/Counter.jsx";
+
+function App() {
+  return (
+    <div>
+      <Counter />
+    </div>
+  );
+}
+
+export default App;
