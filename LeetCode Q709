@@ -1,0 +1,5 @@
+// To Lower Case (Easy)
+
+var toLowerCase = function(s) {
+   return s.toLowerCase();
+};
