@@ -1,0 +1,6 @@
+// Binary Search (Easy)
+
+var search = function(nums, target) {
+    let index = nums.findIndex(x => x === target);
+    return index;
+};
