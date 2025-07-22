@@ -1,0 +1,19 @@
+// example for "builder" or extraReducers
+
+const userSlice = createSlice({
+  name: 'users',
+  initialState: { count: 0, users: [], loading: false, error: '' },
+  reducers: { /*...increment, decrement*/ },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUsers.pending, (state) => { state.loading = true; })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.users = action.payload;
+      })
+      .addCase(fetchUsers.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+  }
+});
