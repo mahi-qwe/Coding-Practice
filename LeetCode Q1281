@@ -1,0 +1,15 @@
+// Subtract the Product and Sum of Digits of an Integer (Easy)
+
+var subtractProductAndSum = function(n) {
+    let duplicate = n;
+    let digit;
+    let sum = 0;
+    let product = 1;
+    while(duplicate > 0){
+        digit = duplicate % 10;
+        sum += digit;
+        product *= digit;
+        duplicate = Math.floor(duplicate / 10);
+    }
+    return product - sum;
+};
