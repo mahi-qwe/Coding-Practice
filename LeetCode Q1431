@@ -1,0 +1,18 @@
+// Kids With the Greatest Number of Candies (Easy)
+
+var kidsWithCandies = function(candies, extraCandies) {
+    let max = Math.max(...candies);
+    let sample = [];
+    for(let each of candies){
+        let total = 0;
+        total += each;
+        total += extraCandies;
+        if(total >= max){
+            sample.push(true);
+        }
+        else{
+            sample.push(false);
+        }
+    }
+    return sample;
+};
