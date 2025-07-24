@@ -1,0 +1,12 @@
+// Find Numbers with Even Number of Digits (Easy)
+
+var findNumbers = function(nums) {
+    let evenCount = 0;
+    let b = nums.map((x) => String(x));
+    for(let i=0; i<b.length; i++){
+        if(b[i].length % 2 === 0){
+            evenCount++;
+        }
+    }
+    return evenCount;
+};
