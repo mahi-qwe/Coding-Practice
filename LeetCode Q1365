@@ -1,0 +1,11 @@
+// How Many Numbers Are Smaller Than the Current Number (Easy)
+
+var smallerNumbersThanCurrent = function(nums) {
+    let sample = [];
+    for(let i=0; i<=nums.length; i++){
+        let array = nums.filter(x => x < nums[i]);
+        sample.push(array.length);
+    }
+    sample.pop();
+    return sample;
+};
