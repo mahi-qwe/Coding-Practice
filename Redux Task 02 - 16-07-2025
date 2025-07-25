@@ -85,7 +85,7 @@ function User() {
   return (
     <div>
       <h2>User: {name}</h2>
-      <button onClick={() => dispatch({ type: 'SET_NAME', payload: 'Mahir' })}>
+      <button onClick={() => dispatch({ type: 'SET_NAME', payload: 'Mahi' })}>
         Set Name to Mahir
       </button>
     </div>
