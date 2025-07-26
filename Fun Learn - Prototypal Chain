@@ -1,0 +1,12 @@
+function Car(model) {
+  this.model = model;
+}
+Car.prototype.drive = function () {
+  console.log(this.model + " is driving");
+};
+
+const myCar = new Car("Tesla");
+
+console.log(myCar.__proto__ === Car.prototype); // true
+console.log(Car.prototype.__proto__ === Object.prototype); // true
+console.log(Object.prototype.__proto__ === null); // true
