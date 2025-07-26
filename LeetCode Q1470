@@ -1,0 +1,11 @@
+// Shuffle the Array (Easy)
+
+var shuffle = function(nums, n) {
+    let sample = [];
+    let array2 = nums.splice(n,n);
+    for(let i=0; i<n; i++){
+            sample.push(nums[i]);
+            sample.push(array2[i]);
+    }
+    return sample;
+};
