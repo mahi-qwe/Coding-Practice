@@ -1,0 +1,14 @@
+// JUST FOR THE SAKE OF THE NOTE:
+
+Before Fiber: React 15 and below
+React used a recursive, synchronous rendering algorithm:
+
+It rendered components from top to bottom in one go.
+
+Big trees = blocking the main thread.
+
+You couldn’t pause in the middle of rendering.
+
+No control over which parts to prioritize.
+
+Result: slow, laggy UI, especially on large apps or low-end devices.
