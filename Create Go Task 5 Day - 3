@@ -1,0 +1,13 @@
+// Display List Using a Loop
+
+package main
+
+import "fmt"
+
+func main() {
+	students := []string{"Alice", "Bob", "Carol", "David"}
+
+	for i, name := range students {
+		fmt.Printf("%d. %s\n", i+1, name)
+	}
+}
