@@ -1,0 +1,24 @@
+// Slice Function to Remove Duplicates
+
+package main
+
+import "fmt"
+
+func removeDuplicates(slice []int) []int {
+	seen := make(map[int]bool)
+	result := []int{}
+
+	for _, val := range slice {
+		if !seen[val] {
+			seen[val] = true
+			result = append(result, val)
+		}
+	}
+	return result
+}
+
+func main() {
+	nums := []int{10, 20, 10, 30, 20}
+	noDup := removeDuplicates(nums)
+	fmt.Println("Without duplicates:", noDup)
+}
