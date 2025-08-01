@@ -1,0 +1,21 @@
+// Store Student Info Using Map
+
+package main
+
+import "fmt"
+
+func main() {
+	students := make(map[string]int)
+
+	// Add students
+	students["Alice"] = 90
+	students["Bob"] = 85
+
+	// Update
+	students["Bob"] = 88
+
+	// Display
+	for name, grade := range students {
+		fmt.Printf("%s => %d\n", name, grade)
+	}
+}
