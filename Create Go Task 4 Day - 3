@@ -1,0 +1,14 @@
+// Use Slice to Store Students (Names only)
+
+package main
+
+import "fmt"
+
+func main() {
+	students := []string{"Alice", "Bob", "Carol"}
+
+	// Add one
+	students = append(students, "David")
+
+	fmt.Println("All students:", students)
+}
