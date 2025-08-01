@@ -1,0 +1,15 @@
+// Map for Student Names and Grades
+
+package main
+
+import "fmt"
+
+func main() {
+	grades := map[string]int{
+		"Alice": 90,
+		"Bob":   85,
+		"Carol": 95,
+	}
+
+	fmt.Println("Bob's grade:", grades["Bob"])
+}
