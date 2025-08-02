@@ -1,0 +1,26 @@
+// Function that modifies int using pointer
+
+package main
+
+import "fmt"
+
+func modify(x *int) {
+    *x = 100
+}
+
+func main() {
+    v := 10
+    modify(&v)
+    fmt.Println(v)
+}
+
+
+
+
+
+
+
+
+
+
+
