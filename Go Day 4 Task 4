@@ -1,0 +1,15 @@
+// Define "Student" struct with Name, Age
+
+package main
+
+import "fmt"
+
+type Student struct{
+    Name string
+    Age int
+}
+
+func main() {
+    s1 := Student{Name: "Rifa", Age: 18}
+    fmt.Println(s1)
+}
