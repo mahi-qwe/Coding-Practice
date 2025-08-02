@@ -1,0 +1,17 @@
+// Create a ‘Person’ struct with a method to print
+
+package main
+import "fmt"
+
+type Person struct {
+    Name string
+}
+
+func (p Person) Printname() {
+    fmt.Println(p.Name)
+}
+
+func main() {
+    var p1 = Person{"Mahir"}
+    p1.Printname()
+}
