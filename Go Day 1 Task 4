@@ -1,0 +1,67 @@
+// Start CLI setup for the CRUD app (basic menu print using fmt and switch)
+
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+	for {
+		fmt.Println("\n--- CRUD CLI App ---")
+		fmt.Println("1. Create")
+		fmt.Println("2. Read")
+		fmt.Println("3. Update")
+		fmt.Println("4. Delete")
+		fmt.Println("5. Exit")
+		fmt.Print("Enter your choice: ")
+
+		var choice int
+		_, err := fmt.Scan(&choice)
+		if err != nil {
+			fmt.Println("Invalid input. Please enter a number.")
+			clearStdin()
+			continue
+		}
+
+		switch choice {
+		case 1:
+			handleCreate()
+		case 2:
+			handleRead()
+		case 3:
+			handleUpdate()
+		case 4:
+			handleDelete()
+		case 5:
+			fmt.Println("Exiting...")
+			os.Exit(0)
+		default:
+			fmt.Println("Invalid choice. Please select a valid option.")
+		}
+	}
+}
+
+// Dummy handlers (replace later with full CRUD logic)
+func handleCreate() {
+	fmt.Println("Create operation selected.")
+}
+
+func handleRead() {
+	fmt.Println("Read operation selected.")
+}
+
+func handleUpdate() {
+	fmt.Println("Update operation selected.")
+}
+
+func handleDelete() {
+	fmt.Println("Delete operation selected.")
+}
+
+// Helper: clear input buffer in case of wrong input
+func clearStdin() {
+	var discard string
+	fmt.Scanln(&discard)
+}
