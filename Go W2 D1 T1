@@ -1,0 +1,10 @@
+// Modify a variable using pointer
+
+package main
+import "fmt"
+
+func main() {
+  ptr := new(int)
+  *ptr = 100
+  fmt.Println(*ptr)
+}
