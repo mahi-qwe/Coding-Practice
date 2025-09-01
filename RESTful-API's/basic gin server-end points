@@ -56,3 +56,18 @@ POST request:
         "email": "mahi@gmail.com"
     }
 }
+GET request:
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Mahir",
+      "email": "mahi@gmail.com"
+    },
+    {
+      "id": 2,
+      "name": "Lalu",
+      "email": "lalu@gmail.com"
+    }
+  ]
+}
