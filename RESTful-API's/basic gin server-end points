@@ -45,3 +45,14 @@ func main() {
 
 	r.Run(":8080")
 }
+
+OUTPUT:-
+POST request:
+{
+    "message": "User created successfully",
+    "user": {
+        "id": 1,
+        "name": "Mahir",
+        "email": "mahi@gmail.com"
+    }
+}
