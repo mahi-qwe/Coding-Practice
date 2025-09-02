@@ -1,0 +1,116 @@
+package main
+
+import (
+	"net/http"
+	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
+)
+
+var jwtKey = []byte("my_secret_key")
+
+// Token durations
+const accessTokenDuration = time.Minute * 1
+const refreshTokenDuration = time.Minute * 5
+
+// Generate Access + Refresh tokens
+func generateTokens(userID int) (string, string, error) {
+	// Access Token
+	accessClaims := jwt.MapClaims{
+		"userId": userID,
+		"exp":    time.Now().Add(accessTokenDuration).Unix(),
+	}
+	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, accessClaims)
+	accessString, err := accessToken.SignedString(jwtKey)
+	if err != nil {
+		return "", "", err
+	}
+
+	// Refresh Token
+	refreshClaims := jwt.MapClaims{
+		"userId": userID,
+		"exp":    time.Now().Add(refreshTokenDuration).Unix(),
+	}
+	refreshToken := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims)
+	refreshString, err := refreshToken.SignedString(jwtKey)
+	if err != nil {
+		return "", "", err
+	}
+
+	return accessString, refreshString, nil
+}
+
+// Middleware to protect routes
+func AuthMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		tokenStr := c.GetHeader("Authorization")
+		if tokenStr == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing access token"})
+			c.Abort()
+			return
+		}
+
+		// Parse access token
+		token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+			return jwtKey, nil
+		})
+
+		if err != nil || !token.Valid {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid or expired access token"})
+			c.Abort()
+			return
+		}
+
+		c.Next()
+	}
+}
+
+func main() {
+	r := gin.Default()
+
+	// Simulated login
+	r.POST("/login", func(c *gin.Context) {
+		// Normally you check username + password from DB
+		access, refresh, _ := generateTokens(123)
+		c.JSON(http.StatusOK, gin.H{
+			"access_token":  access,
+			"refresh_token": refresh,
+		})
+	})
+
+	// Protected route
+	r.GET("/private", AuthMiddleware(), func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"message": "You are inside a private route"})
+	})
+
+	// Refresh endpoint
+	r.POST("/refresh", func(c *gin.Context) {
+		var req struct {
+			RefreshToken string `json:"refresh_token"`
+		}
+		if err := c.BindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
+			return
+		}
+
+		// Validate refresh token
+		token, err := jwt.Parse(req.RefreshToken, func(token *jwt.Token) (interface{}, error) {
+			return jwtKey, nil
+		})
+		if err != nil || !token.Valid {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid or expired refresh token"})
+			return
+		}
+
+		// Extract user ID
+		claims := token.Claims.(jwt.MapClaims)
+		userID := int(claims["userId"].(float64))
+
+		// Generate new access token
+		access, _, _ := generateTokens(userID)
+		c.JSON(http.StatusOK, gin.H{"access_token": access})
+	})
+
+	r.Run(":8080")
+}
