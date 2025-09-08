@@ -1,0 +1,81 @@
+package main
+
+import (
+	"net/http"
+	"net/mail"
+	"unicode"
+
+	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
+)
+
+type User struct {
+	Email    string
+	Password string // hashed password
+}
+
+var users = make(map[string]User)
+
+// ---------- Validation Helpers ----------
+func isValidEmail(email string) bool {
+	_, err := mail.ParseAddress(email)
+	return err == nil
+}
+
+func isValidPassword(password string) bool {
+	if len(password) < 8 {
+		return false
+	}
+	hasNumber := false
+	for _, ch := range password {
+		if unicode.IsDigit(ch) {
+			hasNumber = true
+			break
+		}
+	}
+	return hasNumber
+}
+
+// ---------- Signup Handler ----------
+func signupHandler(c *gin.Context) {
+	var input User
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
+		return
+	}
+
+	// Validate email
+	if !isValidEmail(input.Email) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid email format"})
+		return
+	}
+
+	// Validate password
+	if !isValidPassword(input.Password) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Password too weak (min 8 chars, must include number)"})
+		return
+	}
+
+	// Check if user exists
+	if _, exists := users[input.Email]; exists {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "User already exists"})
+		return
+	}
+
+	// Hash password
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
+
+	// Save user
+	users[input.Email] = User{
+		Email:    input.Email,
+		Password: string(hashedPassword),
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Signup successful"})
+}
+
+func main() {
+	r := gin.Default()
+	r.POST("/signup", signupHandler)
+	r.Run(":8080")
+}
