@@ -1,0 +1,20 @@
+func Reverse(sample string) {
+	runeSlice := []rune(sample)
+	for i, j := 0, len(runeSlice)-1; i < j; i, j = i+1, j-1 {
+		runeSlice[i], runeSlice[j] = runeSlice[j], runeSlice[i]
+	}
+	fmt.Println(string(runeSlice))
+}
+
+func IsPalindrome(s string) {
+	s = strings.ToLower(s)
+	s = strings.ReplaceAll(s, " ", "") // if space exists
+	// rev := Reverse(s)
+	runeSlice := []rune(s)
+	for i, j := 0, len(runeSlice)-1; i < j; i, j = i+1, j-1 {
+		runeSlice[i], runeSlice[j] = runeSlice[j], runeSlice[i]
+	}
+	rev := string(runeSlice)
+	// fmt.Println(string(runeSlice))
+	fmt.Print(rev == s)
+}
