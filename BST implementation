@@ -1,0 +1,83 @@
+package main
+
+import "fmt"
+
+type Node struct {
+	value int
+	left  *Node
+	right *Node
+}
+
+func insert(root *Node, val int) *Node {
+	if root == nil {
+		return &Node{value: val}
+	}
+	if val < root.value {
+		root.left = insert(root.left, val)
+	} else if val > root.value {
+		root.right = insert(root.right, val)
+	}
+	return root
+}
+
+func search(root *Node, val int) bool {
+	if root == nil {
+		return false
+	}
+	if val == root.value {
+		return true
+	} else if val < root.value {
+		return search(root.left, val)
+	}
+	return search(root.right, val)
+}
+
+func inorder(root *Node) {
+	if root == nil {
+		return
+	}
+	inorder(root.left)
+	fmt.Print(root.value, " ")
+	inorder(root.right)
+}
+
+func preorder(root *Node) {
+	if root == nil {
+		return
+	}
+	fmt.Print(root.value, " ")
+	preorder(root.left)
+	preorder(root.right)
+}
+
+func postorder(root *Node) {
+	if root == nil {
+		return
+	}
+	postorder(root.left)
+	postorder(root.right)
+	fmt.Print(root.value, " ")
+}
+
+func main() {
+	var root *Node
+	values := []int{50, 30, 70, 20, 40, 60, 80}
+	for _, v := range values {
+		root = insert(root, v)
+	}
+
+	fmt.Print("Inorder: ")
+	inorder(root)
+	fmt.Println()
+
+	fmt.Print("Preorder: ")
+	preorder(root)
+	fmt.Println()
+
+	fmt.Print("Postorder: ")
+	postorder(root)
+	fmt.Println()
+
+	fmt.Println("Search 40:", search(root, 40))
+	fmt.Println("Search 90:", search(root, 90))
+}
