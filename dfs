@@ -1,0 +1,16 @@
+func (g *Graph) DFS(start string) {
+	visited := make(map[string]bool)
+	fmt.Println("DFS Traversal:")
+	g.dfsHelper(start, visited)
+}
+
+func (g *Graph) dfsHelper(vertex string, visited map[string]bool) {
+	visited[vertex] = true
+	fmt.Print(vertex, " ")
+
+	for _, neighbour := range g.adj[vertex] {
+		if !visited[neighbour] {
+			g.dfsHelper(neighbour, visited)
+		}
+	}
+}
