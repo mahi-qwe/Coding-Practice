@@ -1,0 +1,19 @@
+func (g *Graph) BFS(start string) {
+	visited := make(map[string]bool)
+	queue := []string{start}
+	visited[start] = true
+	fmt.Print("BFS Traversal:")
+
+	for len(queue) > 0 {
+		vertex := queue[0]
+		queue = queue[1:]
+		fmt.Print(vertex, " ")
+
+		for _, neighbour := range g.adj[vertex] {
+			if !visited[neighbour] {
+				visited[neighbour] = true
+				queue = append(queue, neighbour)
+			}
+		}
+	}
+}
