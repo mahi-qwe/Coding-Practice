@@ -1,0 +1,32 @@
+package main
+
+import "fmt"
+
+type Graph struct {
+	adj map[string][]string
+}
+
+func NewGraph() *Graph {
+	return &Graph{adj: make(map[string][]string)}
+}
+
+func (g *Graph) AddVertex(vertex string) {
+	if _, exists := g.adj[vertex]; !exists {
+		g.adj[vertex] = []string{}
+	}
+}
+
+func (g *Graph) AddEdge(v1, v2 string) {
+	g.AddVertex(v1)
+	g.AddVertex(v2)
+
+	g.adj[v1] = append(g.adj[v1], v2)
+	g.adj[v2] = append(g.adj[v2], v1)
+}
+
+func (g *Graph) ShowGraph() {
+	for vertex, neighbours := range g.adj {
+		fmt.Println(vertex, "->", neighbours)
+	}
+}
+
