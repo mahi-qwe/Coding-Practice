@@ -1,0 +1,28 @@
+package main
+
+import (
+	"fmt"
+	"time"
+
+	"github.com/robfig/cron/v3"
+)
+
+func main() {
+	c := cron.New()
+
+	c.AddFunc("@every 1s", CleanExpiredTokens)
+
+	c.AddFunc("@every 5s", SendWeeklyReportToAdmin)
+
+	c.Start()
+
+	select {}
+}
+
+func CleanExpiredTokens() {
+	fmt.Println("🧹 Cleaning expired tokens at", time.Now())
+}
+
+func SendWeeklyReportToAdmin() {
+	fmt.Println("📨 Sending weekly report at", time.Now())
+}
