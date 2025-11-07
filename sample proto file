@@ -1,0 +1,17 @@
+syntax="proto3";
+
+package sample;
+
+option go_package = "grpc-demo/proto";
+
+service SampleService {
+    rpc SampleMethod (SampleRequest) returns (SampleResponse);
+}
+
+message SampleRequest{
+    string text = 1;
+}
+
+message SampleResponse{
+    string text = 1;
+}
