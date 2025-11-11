@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package employee;
+
+option go_package = "grpc/proto;proto";
+
+service Employee {
+    rpc GetEmpDetails (EmpRequest) returns (EmpResponse);
+    rpc PostEmpDetails (EmpResponse) returns (EmpRequest);
+}
+
+message EmpRequest {
+    int32 id = 1;
+}
+
+message EmpResponse {
+    string name = 1;
+    string dept = 2;
+}
